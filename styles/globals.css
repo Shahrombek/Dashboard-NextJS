@@ -17,10 +17,6 @@ a {
   box-sizing: border-box;
 }
 
-.css-10d9dml-MuiTabs-indicator {
-  display: none;
-}
-
 ::-webkit-scrollbar {
   width: 2px;
 }

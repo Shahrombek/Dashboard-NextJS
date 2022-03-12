@@ -101,7 +101,8 @@ const privacy = () => {
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <Box>
-          <AppBar>
+        
+          <AppBar title={'Privacy'}>
             <Prepare />
           </AppBar>
         </Box>

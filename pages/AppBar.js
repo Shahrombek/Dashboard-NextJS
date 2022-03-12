@@ -4,8 +4,6 @@ import {
   Tab,
   Tabs,
   Typography,
-  ListItemButton,
-  ListItemText,
   List,
   Collapse,
   Avatar,
@@ -26,9 +24,12 @@ import ArrowUpwardOutlinedIcon from "@mui/icons-material/ArrowUpwardOutlined";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import CreateLink from "../components/CreateLink";
+import { useRouter } from "next/router";
 
-const AppBar = ({ children }) => {
-  // console.log(props);
+const AppBar = (props) => {
+  console.log(props);
+  const router = useRouter();
+
   const appBarItems = useSelector((state) => state.redux.appBar);
 
   const [value, setValue] = useState(0);
@@ -36,46 +37,16 @@ const AppBar = ({ children }) => {
     setValue(newValue);
   };
 
-  // state for link
-  const [link, setLink] = useState("/");
-  const preparingLink = (item) => {
-    item.map((e, index) => {
-      let word = "";
-      for (let i of e) {
-        if (i !== " ") {
-          word = word + "" + i;
-        }
-      }
-      item[index] = word.toLowerCase();
-    });
-    const ready = item.join("/");
-    setLink(ready);
-  };
-  console.log(link);
-
   // Menu change
-  const [lists, setLists] = useState([]);
-  const [title, setTitle] = useState("Saas");
+  const [items, setItems] = useState([]);
+  const [title, setTitle] = useState(props.title || "");
+  // setTitle(props.title);
   const [showAppBar, setShowAppBar] = useState("");
   const [openAppBar, setOpenAppBar] = useState(false);
   const changeCategory = (item) => {
-    if (item.lists.length !== 0) {
-      setLists(item.lists);
-      setShowAppBar(item.title);
-      setOpenAppBar(true);
-    } else {
-      setLists([]);
-      setTitle(item.title);
-      setOpenAppBar(false);
-      setOpenAppBar("");
-      // link
-      preparingLink([item.title]);
-    }
-  };
-
-  const changePage = (title, list) => {
-    preparingLink([title, list]);
-    setTitle(list);
+    setItems(item);
+    setOpenAppBar(true);
+    console.log(items);
   };
 
   // open list bar
@@ -118,7 +89,6 @@ const AppBar = ({ children }) => {
   return (
     <Box sx={{ width: "100%", display: "flex" }}>
       <Tabs
-        className="scroll"
         sx={{
           maxWidth: "68px",
           minWidth: "68px",
@@ -161,7 +131,9 @@ const AppBar = ({ children }) => {
             <Tab
               key={index}
               className="tab"
-              onClick={() => changeCategory(item)}
+              onClick={() =>
+                item.link ? router.push(`/${item.link}`) : changeCategory(item)
+              }
               sx={{
                 maxWidth: "68px",
                 minWidth: "68px",
@@ -170,14 +142,14 @@ const AppBar = ({ children }) => {
                 padding: "12px 0px",
                 color: "secondary.main",
               }}
-              label={<CreateLink href={link}>{item.icon}</CreateLink>}
+              label={item.icon}
             />
           );
         })}
       </Tabs>
 
       {/* Menu changeCategory */}
-      {openAppBar && lists.length !== 0 && (
+      {openAppBar && (
         <Box
           sx={{
             width: 270,
@@ -202,7 +174,7 @@ const AppBar = ({ children }) => {
               mt: 1,
             }}
           >
-            {showAppBar}
+            {items.title}
           </Typography>
           <Box
             onClick={handleClick}
@@ -217,37 +189,35 @@ const AppBar = ({ children }) => {
             }}
           >
             <Typography sx={{ fontSize: "13px", fontWeight: 500 }}>
-              {showAppBar}
+              {items.title}
             </Typography>
             {open ? <ExpandMoreOutlinedIcon /> : <ChevronRightOutlinedIcon />}
           </Box>
 
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List disablePadding>
-              {lists.map((list, index) => {
+              {items.lists.map((item, index) => {
                 return (
                   <Typography
                     key={index}
+                    onClick={() => router.push(`/${item.link}`)}
                     sx={{
                       padding: "12px 0px",
                       cursor: "pointer",
                       fontSize: "12px",
                     }}
-                    onClick={() => changePage(showAppBar, list)}
                   >
-                    <CreateLink href={link}>
-                      <span
-                        style={{
-                          display: "inline-block",
-                          width: "5px",
-                          height: "5px",
-                          margin: "0px 10px 0px 5px",
-                          backgroundColor: "rgb(36, 153, 239)",
-                          borderRadius: "50%",
-                        }}
-                      ></span>
-                      {list}
-                    </CreateLink>
+                    <span
+                      style={{
+                        display: "inline-block",
+                        width: "5px",
+                        height: "5px",
+                        margin: "0px 10px 0px 5px",
+                        backgroundColor: "rgb(36, 153, 239)",
+                        borderRadius: "50%",
+                      }}
+                    ></span>
+                    {item.title}
                   </Typography>
                 );
               })}
@@ -262,7 +232,6 @@ const AppBar = ({ children }) => {
           sx={{
             width: "100%",
             height: "72px",
-            boxShadow: 1,
             position: "sticky",
             top: 0,
             right: 0,
@@ -282,7 +251,7 @@ const AppBar = ({ children }) => {
               onClick={() => setOpenAppBar(!openAppBar)}
               sx={{ mr: 1 }}
             >
-              <MenuRoundedIcon color="primary" sx={{ fontSize: 25 }} />
+              <MenuRoundedIcon color="primary" sx={{ fontSize: 30 }} />
             </IconButton>
             <Box
               sx={{
@@ -316,7 +285,7 @@ const AppBar = ({ children }) => {
                 <Avatar
                   alt="Remy Sharp"
                   src="https://uko-react.vercel.app/static/flags/usa.png"
-                  sx={{ width: 20, height: 20, m: 1 }}
+                  sx={{ width: 20, height: 20, m: 1, cursor: "pointer" }}
                 />
                 <IconButton>
                   <WbSunnyRoundedIcon sx={{ color: "rgb(247, 181, 59)" }} />
@@ -378,7 +347,7 @@ const AppBar = ({ children }) => {
         </Box>
 
         {/* children section */}
-        <Box sx={{ p: "20px 30px" }}> {children} </Box>
+        <Box sx={{ p: "20px 30px" }}> {props.children} </Box>
       </Box>
 
       <IconButton
@@ -389,12 +358,13 @@ const AppBar = ({ children }) => {
           zIndex: 1,
           borderRadius: "50%",
           width: 45,
-          height:45,
+          height: 45,
+          "&:hover":{backgroundColor: 'primary.main'},
           backgroundColor: "primary.main",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: 'white',
+          color: "white",
         }}
       >
         <CreateLink href={"#"}>
