@@ -1,7 +1,22 @@
-const saas = () => {
+import { Box } from "@mui/material";
+import UkoDashboard from "../../components/dashboard/UkoDashboard";
+import Layout from "../Layout";
+
+
+function Prepare() {
   return (
-    <div>saas</div>
-  )
+    <Box>
+      <UkoDashboard/>
+    </Box>
+  );
 }
 
-export default saas
+const saas = () => {
+  return (
+    <Layout title={"Saas"}>
+      <Prepare />
+    </Layout>
+  );
+};
+
+export default saas;

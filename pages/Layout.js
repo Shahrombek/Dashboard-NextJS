@@ -9,7 +9,6 @@ import {
   Avatar,
 } from "@mui/material";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 // icons
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
@@ -25,12 +24,11 @@ import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import CreateLink from "../components/CreateLink";
 import { useRouter } from "next/router";
+import LayoutData from '../data/LayoutData'
 
-const AppBar = (props) => {
+const Layout = (props) => {
   console.log(props);
   const router = useRouter();
-
-  const appBarItems = useSelector((state) => state.redux.appBar);
 
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
@@ -126,7 +124,7 @@ const AppBar = (props) => {
             src="https://uko-react.vercel.app/static/logo/logo.svg"
           />
         </Box>
-        {appBarItems.map((item, index) => {
+        {LayoutData.map((item, index) => {
           return (
             <Tab
               key={index}
@@ -204,7 +202,8 @@ const AppBar = (props) => {
                     sx={{
                       padding: "12px 0px",
                       cursor: "pointer",
-                      fontSize: "12px",
+                      fontSize: "13px",
+                      fontWeight: 400,
                     }}
                   >
                     <span
@@ -375,4 +374,4 @@ const AppBar = (props) => {
   );
 };
 
-export default AppBar;
+export default Layout;
