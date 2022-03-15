@@ -9,7 +9,7 @@ import {
   Avatar,
   Paper,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // icons
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
@@ -89,9 +89,27 @@ const Layout = (props) => {
 
   // Dark/Mode toggle
   const [mode, setMode] = useState("light");
+
+  const [windowWidth, setWindowWidth] = useState(false);
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= 800) {
+        setWindowWidth(true);
+      } else {
+        setWindowWidth(false);
+      }
+    });
+  }, []);
   return (
     <ThemeProvider theme={ThemeContext(mode)}>
-      <Box sx={{ width: "100%", display: "flex", borderRadius: '0px', background: 'background.main' }}>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          borderRadius: "0px",
+          background: "background.main",
+        }}
+      >
         <Tabs
           sx={{
             maxWidth: "68px",
@@ -121,7 +139,7 @@ const Layout = (props) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              background: 'rgb(255, 255, 255)',
+              background: "rgb(255, 255, 255)",
               borderRight: "2px solid rgb(36, 153, 239)",
             }}
           >
@@ -158,17 +176,18 @@ const Layout = (props) => {
         {openAppBar && (
           <Box
             sx={{
-              width: 270,
+              width: 250,
               transition: "0.5s",
               overflow: "hidden",
-              position: "sticky",
+              position: "fixed",
               top: 0,
               left: "68px",
+              zIndex: 100,
               height: "100vh",
               boxShadow: 4,
               p: 0,
               m: 0,
-              background: "rgba(255, 255, 255, 0.8)",
+              background: "rgba(255, 255, 255)",
               padding: "15px",
             }}
           >
@@ -190,7 +209,7 @@ const Layout = (props) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                cursor: 'pointer',
+                cursor: "pointer",
                 p: 0,
                 color: open ? "rgb(36, 153, 239)" : "secondary.main",
               }}
@@ -198,41 +217,55 @@ const Layout = (props) => {
               <Typography sx={{ fontSize: "13px", fontWeight: 500 }}>
                 {items.title}
               </Typography>
-              {open ? items.lists && <ExpandMoreOutlinedIcon /> : items.lists && <ChevronRightOutlinedIcon />}
+              {open
+                ? items.lists && <ExpandMoreOutlinedIcon />
+                : items.lists && <ChevronRightOutlinedIcon />}
             </Box>
 
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List disablePadding>
-                {items.lists && items.lists.map((item, index) => {
-                  return (
-                    <Typography
-                      key={index}
-                      onClick={() => router.push(`/${item.link}`)}
-                      sx={{
-                        padding: "12px 0px",
-                        cursor: "pointer",
-                        fontSize: "13px",
-                        fontWeight: 400,
-                      }}
-                    >
-                      <span
-                        style={{
-                          display: "inline-block",
-                          width: "5px",
-                          height: "5px",
-                          margin: "0px 10px 0px 5px",
-                          backgroundColor: "rgb(36, 153, 239)",
-                          borderRadius: "50%",
+                {items.lists &&
+                  items.lists.map((item, index) => {
+                    return (
+                      <Typography
+                        key={index}
+                        onClick={() => router.push(`/${item.link}`)}
+                        sx={{
+                          padding: "12px 0px",
+                          cursor: "pointer",
+                          fontSize: "13px",
+                          fontWeight: 400,
                         }}
-                      ></span>
-                      {item.title}
-                    </Typography>
-                  );
-                })}
+                      >
+                        <span
+                          style={{
+                            display: "inline-block",
+                            width: "5px",
+                            height: "5px",
+                            margin: "0px 10px 0px 5px",
+                            backgroundColor: "rgb(36, 153, 239)",
+                            borderRadius: "50%",
+                          }}
+                        ></span>
+                        {item.title}
+                      </Typography>
+                    );
+                  })}
               </List>
             </Collapse>
           </Box>
         )}
+        {openAppBar && <Box sx={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          zIndex: 10000,
+          width: 'calc(100% - 68px - 250px)',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.15)',
+        }}
+        onClick={() => setOpenAppBar(!openAppBar)}
+        ></Box>}
 
         {/*  Header Section  */}
         <Box sx={{ width: "100%" }} data-aos="fade-right">
@@ -243,7 +276,7 @@ const Layout = (props) => {
               position: "sticky",
               top: 0,
               right: 0,
-              zIndex: 1000,
+              zIndex: 10,
             }}
           >
             <header

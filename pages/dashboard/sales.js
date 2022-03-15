@@ -399,7 +399,9 @@ function Prepare() {
             >
               Earnings Report Month ​
             </Typography>
-            <BarChart height={250} />
+            <Box sx={{width:'100%'}}>
+              <BarChart height={250} />
+              </Box>
           </Box>
         </Paper>
 

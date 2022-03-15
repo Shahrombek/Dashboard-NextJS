@@ -4,6 +4,19 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
+// const [width, setWidth] = useState(false);
+// useEffect(() => {
+//   window.addEventListener("resize", () => {
+//     if (window.innerWidth <= 800) {
+//       setWidth(true);
+//     } else {
+//       setWidth(false);
+//     }
+//   });
+// }, []);
+// {width && <Box onClick={() => setOpenAppBar(!openAppBar)} sx={{position:'sticky', top:'0', right: 0, background: 'rgb(0, 0, 0, 0.6)', width: '100% !important'}}>
+// </Box>}
+
 function BarChart(props) {
   const [width, setWidth] = useState(false);
   useEffect(() => {
