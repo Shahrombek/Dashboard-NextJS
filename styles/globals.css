@@ -19,9 +19,13 @@ a {
 
 ::-webkit-scrollbar {
   width: 2px;
+  height: 3px;
 }
 ::-webkit-scrollbar-track {
   background: rgb(36, 153, 239) !important;
   
 }
 
+.apexcharts-zoom-icon, .apexcharts-reset-icon, .apexcharts-menu-icon{
+  display: none
+}

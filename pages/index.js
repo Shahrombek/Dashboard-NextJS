@@ -1,11 +1,10 @@
-import UkoDashboard from "../components/dashboard/UkoDashboard";
+import { Box } from "@mui/material";
 import Layout from "./Layout";
 
 export default function Home() {
   return (
-    <>
+    <Box>
       <Layout />
-      {/* <UkoDashboard/> */}
-    </>
+    </Box>
   );
 }

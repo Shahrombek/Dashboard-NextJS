@@ -1,10 +1,9 @@
 import { Box, Divider, Typography } from "@mui/material";
 import Layout from "../Layout";
 
-
 function Prepare() {
   return (
-    <Box>
+    <Box sx={{padding: '0px 30px'}}>
       <Typography
         sx={{
           fontWeight: { xs: "600", sm: "700" },
@@ -113,8 +112,8 @@ function Prepare() {
 const privacy = () => {
   return (
     <Layout title={"Privacy"}>
-      <Prepare />
-    </Layout>
+        <Prepare />
+      </Layout>
   );
 };
 

@@ -8,7 +8,7 @@ import "../styles/globals.css";
 import ThemeContext from "./Theme/ThemeContext";
 
 function MyApp({ Component, pageProps }) {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
   return (
     <ThemeProvider theme={ThemeContext(mode)}>
       <Provider store={store}>
