@@ -30,7 +30,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import ThemeContext from "./Theme/ThemeContext";
 
 const Layout = (props) => {
-  console.log(props);
   const router = useRouter();
 
   const [value, setValue] = useState(0);
@@ -47,7 +46,6 @@ const Layout = (props) => {
   const changeCategory = (item) => {
     setItems(item);
     setOpenAppBar(true);
-    console.log(items);
   };
 
   // open list bar
