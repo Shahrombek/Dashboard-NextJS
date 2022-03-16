@@ -23,37 +23,36 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 
 function Prepare() {
   const datass = useSelector((state) => state.redux.addTodo);
-  const editTasks = useSelector((state) => state.redux.singleTodo);
+  // const editTasks = useSelector((state) => state.redux.singleTodo);
 
-  console.log(editTasks);
   const todos = Object.values(datass);
+
+  const [changeTask, seChangeTask] = useState({title:'', info:''});
+  
   const { register, handleSubmit } = useForm({
-    defaultValues: editTasks,
+    defaultValues: changeTask,
   });
-
-  const [form, setForm] = useState(false);
-
-  console.log(todos);
 
   const addTodo = () => {
     setForm(!form);
   };
-
+  
+  const [form, setForm] = useState(false);
   const removeTodo = (item) => {
     todos.map((e) => e.completed = false);
     deletTodo(item);
-    console.log(item);
   };
 
   const editTodo = (item) => {
-    EditTodo(item);
+    // EditTodo(item);
+    seChangeTask(item);
     setForm(!form);
-    console.log(item);
   };
 
   const onSubmit = (data) => {
     data.id = uuidv4();
     data.completed = false;
+    seChangeTask({title:'', info: ''})
     getTodo(data);
     addTodo();
   };
@@ -77,8 +76,6 @@ function Prepare() {
   const openSetting = (item) => {
     todos.map((e) => {
       e.id === item.id ? e.completed = true : e.completed = false;
-      // e.completed = false;
-      console.log(e);
     });
     item.completed = true;
     getTodo(item);
@@ -108,7 +105,6 @@ function Prepare() {
                     sx={{ width: "100%", my: 1, fontSize: "14px !important" }}
                     label="Title"
                     {...register("title", { required: true })}
-                    value={editTasks.title}
 
 
                   />
@@ -119,8 +115,7 @@ function Prepare() {
                     multiline
                     rows={4}
                     label="Description"
-                    {...register("info", { required: true })}
-                    value={editTasks.info}
+                    {...register("info", { required: true })}     
                   />
                   <Box
                     sx={{ display: "flex", gap: "15px", width: "100%", my: 2 }}
