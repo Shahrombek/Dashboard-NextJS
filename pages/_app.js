@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 import "../styles/globals.css";
-import ThemeContext from "./Theme/ThemeContext";
+import ThemeContext from "../Theme/ThemeContext";
 
 function MyApp({ Component, pageProps }) {
   const [mode, setMode] = useState("dark");

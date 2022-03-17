@@ -27,7 +27,7 @@ import CreateLink from "../components/CreateLink";
 import { useRouter } from "next/router";
 import LayoutData from "../data/LayoutData";
 import { ThemeProvider } from "@mui/material/styles";
-import ThemeContext from "./Theme/ThemeContext";
+import ThemeContext from "../Theme/ThemeContext";
 
 const Layout = (props) => {
   const router = useRouter();
@@ -144,6 +144,7 @@ const Layout = (props) => {
             <img
               style={{ width: "48%", margin: "15px auto" }}
               src="https://uko-react.vercel.app/static/logo/logo.svg"
+              alt="asdf"
             />
           </Box>
           {LayoutData.map((item, index) => {

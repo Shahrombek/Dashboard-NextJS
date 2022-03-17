@@ -23,38 +23,41 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 
 function Prepare() {
   const datass = useSelector((state) => state.redux.addTodo);
-  // const editTasks = useSelector((state) => state.redux.singleTodo);
 
   const todos = Object.values(datass);
-
-  const [changeTask, seChangeTask] = useState({title:'', info:''});
-  
-  const { register, handleSubmit } = useForm({
-    defaultValues: changeTask,
+  const [id, setId] = useState(false);
+  const { register, handleSubmit,setValue } = useForm({
+    defaultValues: {title:'', info:''},
   });
 
   const addTodo = () => {
+    setValue("title", "")
+    setValue("info", "")
     setForm(!form);
   };
   
   const [form, setForm] = useState(false);
   const removeTodo = (item) => {
+    item.completed = false;
     todos.map((e) => e.completed = false);
     deletTodo(item);
   };
 
   const editTodo = (item) => {
-    // EditTodo(item);
-    seChangeTask(item);
-    setForm(!form);
+    item.completed = false;
+    setForm(true);
+    setId(item.id);
+    setValue("title", item.title)
+    setValue("info", item.info)
   };
 
   const onSubmit = (data) => {
-    data.id = uuidv4();
     data.completed = false;
-    seChangeTask({title:'', info: ''})
+    id ? data.id = id : data.id = uuidv4();
     getTodo(data);
     addTodo();
+    
+    setId(false);
   };
 
   
@@ -74,12 +77,14 @@ function Prepare() {
   }
 
   const openSetting = (item) => {
-    todos.map((e) => {
-      e.id === item.id ? e.completed = true : e.completed = false;
-    });
     item.completed = true;
     getTodo(item);
   };
+  const closeSetting = (item) => {
+    item.completed = false;
+    getTodo(item);
+  }
+
   return (
     <Box sx={{ padding: "30px" }}>
       <Grid container spacing={3}>
@@ -104,9 +109,8 @@ function Prepare() {
                     size="small"
                     sx={{ width: "100%", my: 1, fontSize: "14px !important" }}
                     label="Title"
-                    {...register("title", { required: true })}
-
-
+                    
+                    {...register("title", { required: true },)}
                   />
                   <TextField
                     variant="filled"
@@ -153,8 +157,8 @@ function Prepare() {
                   todos.map((item) => {
                     return (
                       <Paper
-                        key={item.id}
-                        sx={{
+                      key={item.id}
+                      sx={{
                           p: "15px",
                           my: 2,
                           mx: "auto",
@@ -195,8 +199,10 @@ function Prepare() {
                                 zIndex: 10000,
                                 background: "white",
                                 borderRadius: "4px",
+                                margin: '20px',
                                 boxShadow: "rgb(0 0 0 / 7%) 0px 1px 21px 2px",
                               }}
+                              // onClick={() => closeSetting(item)}
                             >
                               <Button
                                 sx={{
@@ -298,7 +304,6 @@ function Prepare() {
                           >
                             <AvatarGroup
                               total={3}
-                              onClick={() => removeTodo(item)}
                             >
                               <Avatar
                                 sx={{ background: "rgb(229, 234, 242)" }}

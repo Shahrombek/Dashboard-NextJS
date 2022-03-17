@@ -29,3 +29,8 @@ a {
 .apexcharts-zoom-icon, .apexcharts-reset-icon, .apexcharts-menu-icon{
   display: none
 }
+
+::selection {
+  color: #fff;
+  background: rgb(36, 153, 239, 1);
+}

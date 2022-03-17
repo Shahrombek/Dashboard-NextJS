@@ -2,10 +2,6 @@ import * as t from "../types";
 
 const initialState = {
   addTodo: {},
-  singleTodo:{
-    title: 'task 1',
-    info: 'decription',
-  },
 };
 
 const newsReducer = (state = initialState, action) => {
@@ -25,13 +21,6 @@ const newsReducer = (state = initialState, action) => {
         (e) => e.id !== action.payload.id
       );
       return { ...state, addTodo: { ...task } };
-
-    case t.EDIT_TODO:
-      // const edit = Object.values(state.addTodo).filter(
-      //   (e) => e.id === action.payload.id
-      // );
-      return {...state, singleTodo:{...action.payload}};
-    
       default:
       return state;
   }

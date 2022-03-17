@@ -1,4 +1,4 @@
-const SET_CATEGORY = 'SET_CATEGORY';
+export const SET_CATEGORY = 'SET_CATEGORY';
 
 export const ADD_TODO = 'ADD_TODO';
 export const REMOVE_TODO = 'REMOVE_TODO';
