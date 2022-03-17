@@ -98,8 +98,23 @@ const Layout = (props) => {
       }
     });
   }, []);
+
+  const [openLayoutMenu, setOpenLayoutMenu] = useState(false);
+
+  const layoutMenu = (item) => {
+    setOpenLayoutMenu(!openLayoutMenu);
+    item.link
+    ? router.push(`/${item.link}`)
+    : changeCategory(item)
+  }
+
+  const closeAppBar = () => {
+    setOpenAppBar(!openAppBar)
+    setOpenLayoutMenu(false)
+  }
+
   return (
-    <ThemeProvider theme={ThemeContext(mode)}>
+    <ThemeProvider theme={ThemeContext("light")}>
       <Box
         sx={{
           width: "100%",
@@ -108,68 +123,66 @@ const Layout = (props) => {
           background: "background.main",
         }}
       >
-        <Tabs
-          sx={{
-            maxWidth: "68px",
-            minWidth: "68px",
-            boxShadow: 2,
-            maxHeight: "100vh",
-            overflowY: "auto",
-            display: "inline-block !important",
-            position: "sticky",
-            top: "0",
-            left: "0",
-            background: "rgba(255, 255, 255, 0.8)",
-            pt: 9,
-          }}
-          orientation="vertical"
-          value={value}
-          onChange={handleChange}
-        >
-          <Box
+        <Box sx={{display: {xs: !openAppBar ? 'none' : 'block', sm:'block'}}}>
+          <Tabs
             sx={{
-              width: "68px",
-              height: "72px",
-              position: "fixed",
+              maxWidth: "68px",
+              minWidth: "68px",
+              boxShadow: 2,
+              height: '100vh !important',
+              overflowY: "auto",
+              display: "inline-block !important",
+              position: 'sticky',
               top: "0",
               left: "0",
-              zIndex: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "rgb(255, 255, 255)",
-              borderRight: "2px solid rgb(36, 153, 239)",
+              zIndex:11,
+              background: {xs:'rgba(255, 255, 255)', sm:"rgba(255, 255, 255, 0.8)"},
+              pt: 9,
             }}
+            orientation="vertical"
+            value={value}
+            onChange={handleChange}
           >
-            <img
-              style={{ width: "48%", margin: "15px auto" }}
-              src="https://uko-react.vercel.app/static/logo/logo.svg"
-              alt="asdf"
-            />
-          </Box>
-          {LayoutData.map((item, index) => {
-            return (
-              <Tab
-                key={index}
-                className="tab"
-                onClick={() =>
-                  item.link
-                    ? router.push(`/${item.link}`)
-                    : changeCategory(item)
-                }
-                sx={{
-                  maxWidth: "68px",
-                  minWidth: "68px",
-                  display: "block",
-                  cursor: "pointer",
-                  padding: "12px 0px",
-                  color: "secondary.main",
-                }}
-                label={item.icon}
+            <Box
+              sx={{
+                width: "68px",
+                height: "72px",
+                position: "fixed",
+                top: "0",
+                left: "0",
+                zIndex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgb(255, 255, 255)",
+                borderRight: "2px solid rgb(36, 153, 239)",
+              }}
+            >
+              <img
+                style={{ width: "48%", margin: "15px auto" }}
+                src="https://uko-react.vercel.app/static/logo/logo.svg"
+                alt="asdf"
               />
-            );
-          })}
-        </Tabs>
+            </Box>
+            {LayoutData.map((item, index) => {
+              return (
+                <Tab
+                  key={index}
+                  onClick={() => layoutMenu(item)}
+                  sx={{
+                    maxWidth: "68px",
+                    minWidth: "68px",
+                    display: "block",
+                    cursor: "pointer",
+                    padding: "12px 0px",
+                    color: "secondary.main",
+                  }}
+                  label={item.icon}
+                />
+              );
+            })}
+          </Tabs>
+        </Box>
 
         {/* Menu changeCategory */}
         {openAppBar && (
@@ -188,6 +201,7 @@ const Layout = (props) => {
               m: 0,
               background: "rgba(255, 255, 255)",
               padding: "15px",
+              display: openLayoutMenu ? 'block' : 'none',
             }}
           >
             <Typography
@@ -254,17 +268,21 @@ const Layout = (props) => {
             </Collapse>
           </Box>
         )}
-        {openAppBar && <Box sx={{
-          position: 'fixed',
-          top: 0,
-          right: 0,
-          zIndex: 10000,
-          width: 'calc(100% - 68px - 250px)',
-          height: '100vh',
-          background: 'rgba(0,0,0,0.15)',
-        }}
-        onClick={() => setOpenAppBar(!openAppBar)}
-        ></Box>}
+        {openAppBar && (
+          <Box
+            sx={{
+              position: "fixed",
+              top: 0,
+              right: 0,
+              zIndex: 10000,
+              width: "calc(100% - 68px - 250px)",
+              height: "100vh",
+              background: "rgba(0,0,0,0.15)",
+              display: openLayoutMenu ? 'block' : 'none',
+            }}
+            onClick={() => closeAppBar()}
+          ></Box>
+        )}
 
         {/*  Header Section  */}
         <Box sx={{ width: "100%" }} data-aos="fade-right">

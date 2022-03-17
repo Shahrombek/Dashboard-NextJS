@@ -13,9 +13,9 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={ThemeContext(mode)}>
       <Provider store={store}>
         <Head>
-          <title>Dashboard</title>
+          <title>Uko React Admin Dashboard</title>
           <meta name="description" content="next app dashboard" />
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="https://uko-react.vercel.app/static/logo/logo.svg" />
 
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
