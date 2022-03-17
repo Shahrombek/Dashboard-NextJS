@@ -100,18 +100,22 @@ const Layout = (props) => {
   }, []);
 
   const [openLayoutMenu, setOpenLayoutMenu] = useState(false);
-
+  const [saveLists, setSaveLists] = useState([]);
   const layoutMenu = (item) => {
-    setOpenLayoutMenu(!openLayoutMenu);
+    setSaveLists([...item.lists])
+    setOpenLayoutMenu(true);
     item.link
     ? router.push(`/${item.link}`)
     : changeCategory(item)
   }
 
+
   const closeAppBar = () => {
     setOpenAppBar(!openAppBar)
     setOpenLayoutMenu(false)
+
   }
+  
 
   return (
     <ThemeProvider theme={ThemeContext("light")}>
@@ -185,7 +189,7 @@ const Layout = (props) => {
         </Box>
 
         {/* Menu changeCategory */}
-        {openAppBar && (
+        {(openAppBar && saveLists.length > 0) && (
           <Box
             sx={{
               width: 250,
@@ -268,7 +272,7 @@ const Layout = (props) => {
             </Collapse>
           </Box>
         )}
-        {openAppBar && (
+        {(openAppBar && saveLists.length > 0)  && (
           <Box
             sx={{
               position: "fixed",
