@@ -139,3 +139,46 @@ export const Chats = [
         time: '11:40pm',
     },
 ]
+
+
+// chat data
+import FolderZipIcon from '@mui/icons-material/FolderZip';
+
+export const ChatData = [
+    {
+        iconZip: <FolderZipIcon/>,
+        title: 'Reference Zip',
+        info: 'Oct 21, 2021',
+        icon: '1.8MB',
+    },
+];
+
+export const ChatData2 = [
+    {
+        title: 'Reference Zip',
+        info: 'Oct 21, 2021',
+        icon: '1.8MB',
+    },
+];
+
+
+export const ChatUsers = [
+    {
+        img: 'https://uko-react.vercel.app/static/avatar/070-man-15.svg',
+        title: 'Ella knox',
+        info: 'Hi. Our deadlines are.....',
+        icon: '11:50pm',
+    },
+    {
+        img: 'https://uko-react.vercel.app/static/avatar/069-woman-15.svg',
+        title: 'Sean mila',
+        info: 'Hi. Our deadlines are.....',
+        icon: '11:40pm',
+    },
+    {
+        img: 'https://uko-react.vercel.app/static/avatar/067-man-14.svg',
+        title: 'Taylor Swift',
+        info: 'Hi. Our deadlines are.....',
+        icon: '11:30pm',
+    },
+];

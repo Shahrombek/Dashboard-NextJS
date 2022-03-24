@@ -27,6 +27,10 @@ import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { useSelector } from "react-redux";
 import { getMsg } from "../../redux/actions/newsActions";
+import { styled } from "@mui/material/styles";
+import Badge from "@mui/material/Badge";
+import { ChatData, ChatData2, ChatUsers } from "../../data/ProjectmanagementData";
+import ChatTasks from "../../components/chat/ChatTasks";
 
 function Prepare() {
   const mgsData = useSelector((state) => state.redux.messageData);
@@ -108,8 +112,8 @@ function Prepare() {
     divRef.current.scrollIntoView({ behavior: "smooth" });
   });
 
-const [file, setFile] = useState();
-  const handleFileChange = event => {
+  const [file, setFile] = useState();
+  const handleFileChange = (event) => {
     let input = event.target.files[0];
     console.log(input);
     if (!input) return;
@@ -117,9 +121,40 @@ const [file, setFile] = useState();
     setFile(input);
   };
 
-
-
   console.log(file);
+
+  // Avatar bage
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    "& .MuiBadge-badge": {
+      backgroundColor: "rgb(36, 153, 239)",
+      color: "#44b700",
+      width: "10px",
+      height: "10px",
+      borderRadius: "50%",
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      "&::after": {
+        position: "absolute",
+        top: -1,
+        left: -1,
+        width: "100%",
+        height: "100%",
+        borderRadius: "50%",
+        animation: "ripple 1.2s infinite ease-in-out",
+        border: "1px solid rgb(36, 153, 239)",
+        content: '""',
+      },
+    },
+    "@keyframes ripple": {
+      "0%": {
+        transform: "scale(.8)",
+        opacity: 1,
+      },
+      "100%": {
+        transform: "scale(2)",
+        opacity: 0,
+      },
+    },
+  }));
 
   return (
     <Box sx={{ padding: "30px" }}>
@@ -157,10 +192,60 @@ const [file, setFile] = useState();
                 </IconButton>
               </form>
             </Paper>
+
             <Paper sx={{ height: "515px", width: "100%" }}>
-              <Box sx={{ p: 3 }}></Box>
+              <Box sx={{ p: 3, textAlign: "center" }}>
+                <StyledBadge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  variant="dot"
+                >
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://uko-react.vercel.app/static/avatar/067-man-14.svg"
+                    sx={{
+                      background: "rgb(36, 153, 239, 0.3)",
+                      width: "60px",
+                      height: "60px",
+                    }}
+                  />
+                </StyledBadge>
+                <Typography sx={{ fontSize: "16px", fontWeight: 600, mt: 1 }}>
+                  Elon Mask
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    mb: "5px",
+                    color: "secondary.main",
+                  }}
+                >
+                  My Account
+                </Typography>
+              </Box>
               <Divider />
-              <Box></Box>
+              <Box>
+                <Box sx={{ p: " 5px 15px" }}>
+                  <Typography
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "start",
+                      py: "7px",
+                    }}
+                  >
+                    <span style={{ fontSize: "14px", fontWeight: 600 }}>
+                    Recent Chats
+                    </span>
+                  </Typography>
+                  <Box sx={{ height: "300px",overflowY: "auto", pr: 1 }}>
+                    <ChatTasks Data={ChatUsers} />
+                    <ChatTasks Data={ChatUsers} />
+                    <ChatTasks Data={ChatUsers} />
+                  </Box>
+                </Box>
+              </Box>
             </Paper>
           </Box>
         </Box>
@@ -255,24 +340,30 @@ const [file, setFile] = useState();
                 gap: "7px",
               }}
             >
-              <input onChange={handleFileChange} type="file" id="file" accept="image/*" />
+              <input
+                onChange={handleFileChange}
+                type="file"
+                id="file"
+                accept="image/*"
+              />
               <label for="file">
                 <span
                   style={{
-                    display: 'inline-block',
+                    display: "inline-block",
                     border: "1px solid #bdbdbd",
                     fontSize: "18px",
-                    width: '35px',
-                    height: '35px',
-                    borderRadius: '50%',
+                    width: "35px",
+                    height: "35px",
+                    borderRadius: "50%",
                     color: "gray",
                     transform: "rotate(-45deg)",
-                    display: "flex", alignItems: "center",
+                    display: "flex",
+                    alignItems: "center",
                     justifyContent: "center",
-                    cursor: 'pointer',
-                    marginTop: '-5px',
+                    cursor: "pointer",
+                    marginTop: "-5px",
                   }}
-                  >
+                >
                   <LinkRoundedIcon />
                 </span>
               </label>
@@ -325,9 +416,91 @@ const [file, setFile] = useState();
               width: "100%",
               height: "600px",
               display: "block",
-              padding: "30px",
             }}
-          ></Paper>
+          >
+            <Box sx={{ padding: "30px", textAlign: "center" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://uko-react.vercel.app/static/avatar/001-man.svg"
+                  sx={{
+                    background: "rgb(36, 153, 239, 0.3)",
+                    width: "60px",
+                    height: "60px",
+                  }}
+                />
+              </Box>
+              <Typography sx={{ fontSize: "16px", fontWeight: 600, mt: 2 }}>
+                Tom Cruise
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  mb: "5px",
+                  color: "secondary.main",
+                }}
+              >
+                UI Designer
+              </Typography>
+            </Box>
+            <Divider />
+            <Box sx={{ p: " 10px 15px" }}>
+              <Typography
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  py: "7px",
+                }}
+              >
+                <span style={{ fontSize: "14px", fontWeight: 600 }}>
+                  Shared FIles
+                </span>
+                <span style={{ color: "rgb(255, 107, 147)", fontSize: "13px" }}>
+                  See all
+                </span>
+              </Typography>
+              <Box sx={{ height: "155px", overflowY: "auto", pr: 1 }}>
+                <ChatTasks Data={ChatData} />
+                <ChatTasks Data={ChatData} />
+                <ChatTasks Data={ChatData} />
+                <ChatTasks Data={ChatData} />
+                <ChatTasks Data={ChatData} />
+              </Box>
+            </Box>
+            <Divider />
+            <Box sx={{ p: " 5px 15px" }}>
+              <Typography
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  py: "7px",
+                }}
+              >
+                <span style={{ fontSize: "14px", fontWeight: 600 }}>
+                  Shared Links
+                </span>
+                <span style={{ color: "rgb(255, 107, 147)", fontSize: "13px" }}>
+                  See all
+                </span>
+              </Typography>
+              <Box sx={{ height: "143px", overflowY: "auto", pr: 1 }}>
+                <ChatTasks Data={ChatData2} />
+                <ChatTasks Data={ChatData2} />
+                <ChatTasks Data={ChatData2} />
+                <ChatTasks Data={ChatData2} />
+                <ChatTasks Data={ChatData2} />
+              </Box>
+            </Box>
+          </Paper>
         </Box>
       </Box>
     </Box>
