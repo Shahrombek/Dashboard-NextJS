@@ -346,7 +346,7 @@ function Prepare() {
                 id="file"
                 accept="image/*"
               />
-              <label for="file">
+              <label htmlFor="file">
                 <span
                   style={{
                     display: "inline-block",
