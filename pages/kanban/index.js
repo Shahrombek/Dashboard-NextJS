@@ -62,6 +62,7 @@ function Prepare() {
 
   
   //   Drag Drop
+  const [columnTodo, setColumnTodo] = useState(-1);
   function allowDrop(e) {
     e.preventDefault();
   }
@@ -76,6 +77,7 @@ function Prepare() {
     e.target.appendChild(document.getElementById(data));
   }
 
+  // Other section
   const openSetting = (item) => {
     item.completed = true;
     getTodo(item);
@@ -154,7 +156,7 @@ function Prepare() {
                 onDragOver={(event) => allowDrop(event)}
               >
                 {todos.length !== 0 &&
-                  todos.map((item) => {
+                  todos.map((item, index) => {
                     return (
                       <Paper
                       key={item.id}

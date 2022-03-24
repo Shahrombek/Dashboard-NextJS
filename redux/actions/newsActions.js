@@ -13,3 +13,8 @@ export const getTodo = (category) => {
 export const deletTodo = (category) => {
   dispatch({ type: t.REMOVE_TODO, payload: category });
 };
+
+
+export const getMsg = (data) => {
+  dispatch({ type: t.ADD_MSG, payload: data });
+}

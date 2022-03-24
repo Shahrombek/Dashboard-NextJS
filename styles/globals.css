@@ -34,3 +34,7 @@ a {
   color: #fff;
   background: rgb(36, 153, 239, 1);
 }
+
+input[type='file']{
+  display: none
+}
