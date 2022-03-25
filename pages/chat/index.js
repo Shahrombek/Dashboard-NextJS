@@ -405,7 +405,7 @@ function Prepare() {
             sx={{
               width: "100%",
               // minWidth: '300px !important',
-              height: {xs: '530px',sm:"600px"},
+              height: {xs: '570px',sm:"600px"},
               display: "block",
             }}
           >
@@ -499,7 +499,7 @@ function Prepare() {
               ref={divRef}
               sx={{
                 p: "10px 20px",
-                height: {xs: '360px', sm:"420px"},
+                height: {xs: '400px', sm:"420px"},
                 overflowY: "auto",
                 backgroundPosition: "center",
                 objectFit: "cover",
