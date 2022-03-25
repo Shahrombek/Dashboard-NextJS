@@ -19,6 +19,8 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Fragment, useEffect, useRef, useState } from "react";
 
+import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
+import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import MicNoneOutlinedIcon from "@mui/icons-material/MicNoneOutlined";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
@@ -29,7 +31,11 @@ import { useSelector } from "react-redux";
 import { getMsg } from "../../redux/actions/newsActions";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
-import { ChatData, ChatData2, ChatUsers } from "../../data/ProjectmanagementData";
+import {
+  ChatData,
+  ChatData2,
+  ChatUsers,
+} from "../../data/ProjectmanagementData";
 import ChatTasks from "../../components/chat/ChatTasks";
 
 function Prepare() {
@@ -54,33 +60,191 @@ function Prepare() {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: 250 }}
+      sx={{ width: 300 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <span>{anchor}</span>
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      {anchor === "left" && (
+        <Box sx={{ p: "15x" }}>
+          <Paper
+            sx={{
+              width: "87%",
+              display: "block",
+              padding: "8px",
+              m: "30px 20px 0px 20px",
+            }}
+          >
+            <form
+              onSubmit={(e) => handleSubmit(e)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <input
+                style={{
+                  width: "100%",
+                  order: 2,
+                  border: "none",
+                  outline: "none",
+                  fontFamily: "Montserrat",
+                }}
+                placeholder="Find Conversation..."
+              />
+              <IconButton sx={{ order: 1 }}>
+                <SearchRoundedIcon />
+              </IconButton>
+            </form>
+          </Paper>
+
+          <Box sx={{ height: "85vh", width: "100%" }}>
+            <Box sx={{ p: 3, textAlign: "center" }}>
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                variant="dot"
+              >
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://uko-react.vercel.app/static/avatar/067-man-14.svg"
+                  sx={{
+                    background: "rgb(36, 153, 239, 0.3)",
+                    width: "75px",
+                    height: "75px",
+                  }}
+                />
+              </StyledBadge>
+              <Typography sx={{ fontSize: "16px", fontWeight: 600, mt: 1 }}>
+                Elon Mask
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  mb: "5px",
+                  color: "secondary.main",
+                }}
+              >
+                My Account
+              </Typography>
+            </Box>
+            <Divider />
+            <Box>
+              <Box sx={{ p: " 5px 15px" }}>
+                <Typography
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "start",
+                    py: "7px",
+                  }}
+                >
+                  <span style={{ fontSize: "14px", fontWeight: 600 }}>
+                    Recent Chats
+                  </span>
+                </Typography>
+                <Box sx={{ height: "350px", overflowY: "auto", pr: 1 }}>
+                  <ChatTasks Data={ChatUsers} />
+                  <ChatTasks Data={ChatUsers} />
+                  <ChatTasks Data={ChatUsers} />
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      )}
+      {anchor === "right" && <Paper
+            sx={{
+              width: "100%",
+              height: "100vh",
+              display: "block",
+            }}
+          >
+            <Box sx={{ padding: "25px 30px", textAlign: "center" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://uko-react.vercel.app/static/avatar/001-man.svg"
+                  sx={{
+                    background: "rgb(36, 153, 239, 0.3)",
+                    width: "75px",
+                    height: "75px",
+                  }}
+                />
+              </Box>
+              <Typography sx={{ fontSize: "16px", fontWeight: 600, mt: 2 }}>
+                Tom Cruise
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  mb: "5px",
+                  color: "secondary.main",
+                }}
+              >
+                UI Designer
+              </Typography>
+            </Box>
+            <Divider />
+            <Box sx={{ p: " 10px 15px" }}>
+              <Typography
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  py: "7px",
+                }}
+              >
+                <span style={{ fontSize: "14px", fontWeight: 600 }}>
+                  Shared FIles
+                </span>
+                <span style={{ color: "rgb(255, 107, 147)", fontSize: "13px" }}>
+                  See all
+                </span>
+              </Typography>
+              <Box sx={{ height: "190px", overflowY: "auto", pr: 1 }}>
+                <ChatTasks Data={ChatData} />
+                <ChatTasks Data={ChatData} />
+                <ChatTasks Data={ChatData} />
+                <ChatTasks Data={ChatData} />
+                <ChatTasks Data={ChatData} />
+              </Box>
+            </Box>
+            <Divider />
+            <Box sx={{ p: " 5px 15px" }}>
+              <Typography
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  py: "7px",
+                }}
+              >
+                <span style={{ fontSize: "14px", fontWeight: 600 }}>
+                  Shared Links
+                </span>
+                <span style={{ color: "rgb(255, 107, 147)", fontSize: "13px" }}>
+                  See all
+                </span>
+              </Typography>
+              <Box sx={{ height: "180px", overflowY: "auto", pr: 1 }}>
+                <ChatTasks Data={ChatData2} />
+                <ChatTasks Data={ChatData2} />
+                <ChatTasks Data={ChatData2} />
+                <ChatTasks Data={ChatData2} />
+                <ChatTasks Data={ChatData2} />
+              </Box>
+            </Box>
+          </Paper>}
     </Box>
   );
 
@@ -134,24 +298,11 @@ function Prepare() {
       boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
       "&::after": {
         position: "absolute",
-        top: -1,
-        left: -1,
         width: "100%",
         height: "100%",
         borderRadius: "50%",
-        animation: "ripple 1.2s infinite ease-in-out",
-        border: "1px solid rgb(36, 153, 239)",
+        border: "2px solid white",
         content: '""',
-      },
-    },
-    "@keyframes ripple": {
-      "0%": {
-        transform: "scale(.8)",
-        opacity: 1,
-      },
-      "100%": {
-        transform: "scale(2)",
-        opacity: 0,
       },
     },
   }));
@@ -159,7 +310,7 @@ function Prepare() {
   return (
     <Box sx={{ padding: "30px" }}>
       <Box sx={{ width: "100%", display: "flex", gap: "30px" }} spacing={3}>
-        <Box sx={{ flex: 2 }}>
+        <Box sx={{ flex: 2, display: { xs: "none", md: "block" } }}>
           <Box>
             <Paper
               sx={{
@@ -236,10 +387,10 @@ function Prepare() {
                     }}
                   >
                     <span style={{ fontSize: "14px", fontWeight: 600 }}>
-                    Recent Chats
+                      Recent Chats
                     </span>
                   </Typography>
-                  <Box sx={{ height: "300px",overflowY: "auto", pr: 1 }}>
+                  <Box sx={{ height: "300px", overflowY: "auto", pr: 1 }}>
                     <ChatTasks Data={ChatUsers} />
                     <ChatTasks Data={ChatUsers} />
                     <ChatTasks Data={ChatUsers} />
@@ -253,7 +404,8 @@ function Prepare() {
           <Paper
             sx={{
               width: "100%",
-              height: "600px",
+              // minWidth: '300px !important',
+              height: {xs: '530px',sm:"600px"},
               display: "block",
             }}
           >
@@ -263,6 +415,7 @@ function Prepare() {
                 display: "flex",
                 align: "center",
                 justifyContent: "space-between",
+                position: "relative",
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
@@ -285,14 +438,68 @@ function Prepare() {
               <IconButton sx={{ color: "secondary.main" }}>
                 <MoreHorizRoundedIcon />
               </IconButton>
-            </Box>
-            <Divider />
 
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: -45,
+                  left: 0,
+                  background: "rgb(36, 153, 239)",
+                  "&:hover": { background: "rgb(36, 153, 239)" },
+                  display: {xs:'block', md:'none'}
+                }}
+              >
+                <Fragment>
+                  <Button
+                    sx={{ color: "white", minWidth: "20px" }}
+                    onClick={toggleDrawer("left", true)}
+                  >
+                    <KeyboardArrowLeftRoundedIcon />
+                  </Button>
+                  <Drawer
+                    anchor={"left"}
+                    open={state["left"]}
+                    onClose={toggleDrawer("left", false)}
+                  >
+                    {list("left")}
+                  </Drawer>
+                </Fragment>
+              </Box>
+
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: -45,
+                  right: 0,
+                  background: "rgb(36, 153, 239)",
+                  "&:hover": { background: "rgb(36, 153, 239)" },
+                  display: {xs:'block', lg:'none'}
+                }}
+              >
+                <Fragment>
+                  <Button
+                    sx={{ color: "white", minWidth: "20px" }}
+                    onClick={toggleDrawer("right", true)}
+                  >
+                    <ChevronRightRoundedIcon />
+                  </Button>
+                  <Drawer
+                    anchor={"right"}
+                    open={state["right"]}
+                    onClose={toggleDrawer("right", false)}
+                  >
+                    {list("right")}
+                  </Drawer>
+                </Fragment>
+              </Box>
+            </Box>
+
+            <Divider />
             <Box
               ref={divRef}
               sx={{
                 p: "10px 20px",
-                height: "420px",
+                height: {xs: '360px', sm:"420px"},
                 overflowY: "auto",
                 backgroundPosition: "center",
                 objectFit: "cover",
@@ -316,8 +523,8 @@ function Prepare() {
                         background:
                           item.user === "shahrom" ? "#f5f5f5" : "#eeeeee",
                         display: "inline-block",
-                        maxWidth: "70%",
-                        fontSize: "14px",
+                        maxWidth: {xs: '85%', sm:"70%"},
+                        fontSize: {xs: '13px', sm:"14px"},
                         borderRadius:
                           item.user === "shahrom"
                             ? "8px 8px 0 8px "
@@ -333,7 +540,7 @@ function Prepare() {
             <Divider />
             <Box
               sx={{
-                p: "20px 30px",
+                p: {xs: "15px 20px", sm:"20px 30px"},
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -374,21 +581,29 @@ function Prepare() {
                   flex: 1,
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: "space-between",
                   gap: "7px",
+                  flexWrap: "nowrap"
                 }}
               >
-                <input
+                <Box
+                variant='input'
+                component='input'
                   onChange={(e) => message(e)}
                   value={msg}
-                  style={{
+                  sx={{
                     flex: 1,
                     border: "none",
                     outline: "none",
                     fontFamily: "montserrat",
                     fontSize: "13px",
+                    display:'inline-block',
+                    maxWidth: {xs:'130px', sm: '800px'},
                   }}
                   placeholder="Write a message..."
-                />
+                ></Box>
+
+                <Box>
                 <IconButton sx={{ p: "5px", color: "secondary.main" }}>
                   <SentimentSatisfiedAltOutlinedIcon />
                 </IconButton>
@@ -398,6 +613,7 @@ function Prepare() {
                 <IconButton
                   onClick={(e) => submitMsg(e)}
                   sx={{
+                    display: {xs:'none', sm: 'inline-flex'},
                     background: "rgb(36, 153, 239)",
                     "&:hover": { background: "rgb(36, 153, 239)" },
                     color: "white",
@@ -406,11 +622,12 @@ function Prepare() {
                 >
                   <SendRoundedIcon />
                 </IconButton>
+                </Box>
               </form>
             </Box>
           </Paper>
         </Box>
-        <Box sx={{ flex: 2 }}>
+        <Box sx={{ flex: 2, display: { xs: "none", lg: "block" } }}>
           <Paper
             sx={{
               width: "100%",
@@ -516,23 +733,3 @@ const chat = () => {
 };
 
 export default chat;
-
-{
-  /* <div>
-{["left", "right"].map((anchor) => (
-  <Fragment key={anchor}>
-    <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-    <Drawer
-      anchor={anchor}
-      open={state[anchor]}
-      onClose={toggleDrawer(anchor, false)}
-    >
-      {list(anchor)}
-    </Drawer>
-  </Fragment>
-))}
-</div> */
-}
-
-
-// UI Completed
