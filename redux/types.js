@@ -10,3 +10,7 @@ export const SELECT_CATEGORY = 'SELECT_CATEGORY';
 export const SELECT_SORT = 'SELECT_SORT';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const CHANGE_PRODUCT_NUM = 'CHANGE_PRODUCT_NUM';
+export const FIND_PRODUCT = 'FIND_PRODUCT';
+
+export const ADD_USER = 'ADD_USER';
+export const FIND_USER = 'FIND_USER';

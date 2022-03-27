@@ -15,12 +15,12 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import {
   addProduct,
+  findProduct,
   selCategory,
   selSort,
 } from "../../redux/actions/newsActions";
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
@@ -36,6 +36,7 @@ function Prepare() {
   const categoriy = shop.categoriy;
   const sort = shop.sort;
   const categories = Object.entries(shop.categories);
+  const searchPro = shop.searchPro;
 
   const selectCategory = (item) => {
     selCategory(item);
@@ -43,35 +44,61 @@ function Prepare() {
   const selectSort = (item) => {
     selSort(item);
   };
-  // pagenation
 
   //////////////////////////////////////////////
   let data = [];
-  var c = '';
+  var c = "";
   categoriy.map((item) => {
     item.select &&
       categories.map((el) => {
         if (item.name === el[0]) {
-          c = item.name
+          c = item.name;
           data = el[1];
         }
       });
   });
   console.log(data);
   //////////////////////////////////////////////
+  const [search, setSearch] = useState(false);
 
-  const currentOrders = data
+  // search functions
+  const [searchValue, setSearchValue] = useState("");
+  const searchData = () => {
+    const findData = [];
+    data.map((item) => {
+      console.log(item.title);
+      if (item.title.toLowerCase().includes(searchValue.toLowerCase())) {
+        console.log(item.title);
+        findData.push(item);
+      }
+    });
+    findProduct(findData);
+    setSearch(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearchValue("");
+    setSearch(false);
+  };
+  const handleChangeSearch = (e) => {
+    setSearchValue(e.target.value);
+    if (e.target.value.trim().length >= 1) searchData();
+  };
+
+  // pagenation
+  const currentOrders = data;
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(6);
   var pageNumbers = Math.ceil(currentOrders.length / ordersPerPage);
-  console.log(pageNumbers);
-  console.log(currentOrders);
   if (data.length >= 6) {
     const indexOfLastOrder = currentPage * ordersPerPage;
     const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
     data = currentOrders.slice(indexOfFirstOrder, indexOfLastOrder);
-  } else {
+  } else if (data.length >= 1) {
     pageNumbers = 1;
+  } else {
+    pageNumbers = 0;
   }
   console.log(data);
 
@@ -83,10 +110,12 @@ function Prepare() {
 
   // add to card function
   const addToCard = (item) => {
-    item.num = 1
-    !item.incard && addProduct(item)
+    item.num = 1;
+    !item.incard && addProduct(item);
     item.incard = true;
   };
+
+  if (search) data = [...searchPro];
   return (
     <Box sx={{ padding: "10px 30px" }}>
       <Box
@@ -98,6 +127,7 @@ function Prepare() {
       >
         <Paper
           component="form"
+          onSubmit={(e) => handleSubmit(e)}
           sx={{
             flex: 4,
             mb: "30px",
@@ -106,10 +136,12 @@ function Prepare() {
             order: { xs: 2, md: 1 },
           }}
         >
-          <IconButton>
+          <IconButton type="submit">
             <SearchRoundedIcon sx={{ color: "secondary.main" }} />
           </IconButton>
           <input
+            onChange={(e) => handleChangeSearch(e)}
+            value={searchValue}
             style={{
               flex: 1,
               border: "none",
@@ -281,9 +313,30 @@ function Prepare() {
                 return (
                   <Grid item key={i} lg={4} sm={6} xs={12}>
                     <Paper
-                      sx={{ boxShadow: "0px 0px 20px 0px rgba(0,0,0,0.1)", overflow: 'hidden' }}
+                      sx={{
+                        boxShadow: "0px 0px 20px 0px rgba(0,0,0,0.1)",
+                        overflow: "hidden",
+                      }}
                     >
-                      <Box sx={{maxHeight:{xs: '260px !important', sm: '160px !important'}, overflow: 'hidden' }}><img style={{ width: "100%", height: '100%', objectFit: 'cover' }} src={e.img} alt={e.info} /></Box>
+                      <Box
+                        sx={{
+                          maxHeight: {
+                            xs: "260px !important",
+                            sm: "160px !important",
+                          },
+                          overflow: "hidden",
+                        }}
+                      >
+                        <img
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                          src={e.img}
+                          alt={e.info}
+                        />
+                      </Box>
                       <Box sx={{ p: "8px 7px" }}>
                         <Box
                           sx={{
@@ -364,7 +417,11 @@ function Prepare() {
                                 },
                               }}
                             >
-                              {!e.incard ? <AddRoundedIcon /> : <CheckRoundedIcon />}
+                              {!e.incard ? (
+                                <AddRoundedIcon />
+                              ) : (
+                                <CheckRoundedIcon />
+                              )}
                             </IconButton>
                           </Box>
                         </Box>

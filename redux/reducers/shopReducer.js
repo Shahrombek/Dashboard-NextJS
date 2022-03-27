@@ -243,58 +243,59 @@ const initialState = {
       },
     ],
     Others: [
-        {
-          img: "https://img.jakpost.net/c/2017/03/15/2017_03_15_23480_1489559147._large.jpg",
-          title: "Lifestyle - The Jakarta Post",
-          info: "Jakarta Post",
-          incard: false,
-          price: 100,
-        },
-        {
-          img: "https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg",
-          title: "Contemporary Modern House",
-          info: "Interior Design | Archello",
-          incard: false,
-          price: 70000,
-        },
-        {
-          img: "https://purepng.com/public/uploads/large/purepng.com-red-nanoflowcell-quant-f-modern-carcarvehicletransportnanoflowcellelectric-car-961524643572gazq0.png",
-          title: "Red NanoFlowcell ",
-          info: "Quant F Modern Car",
-          incard: false,
-          price: 8400,
-        },
-        {
-          img: "https://useoftechnology.com/wp-content/uploads/2012/11/Ultra-thin-Quad-band-Watch-Mobile-Phone.jpg",
-          title: "Modern Technology ",
-          info: "Advantages And Disadvantages",
-          incard: false,
-          price: 550,
-        },
-        {
-          img: "https://th-thumbnailer.cdn-si-edu.com/xa2JOuH_S4eOdw6C-ZZ0lADMflo=/1000x750/filters:no_upscale()/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/29/44/2944be0e-529b-48c4-8b7d-02724b0cb563/manta5.jpg",
-          title: "Eight Remarkable Invention",
-          info: "Innovation| Smithsonian Magazine",
-          incard: false,
-          price: 870,
-        },
-        {
-          img: "https://www.mensjournal.com/wp-content/uploads/2020/01/CES-main.jpg?quality=86&strip=all",
-          title: "Coolest Gadgets",
-          info: " This Year's Show",
-          incard: false,
-          price: 235,
-        },
-        {
-          img: "https://api.time.com/wp-content/uploads/2019/11/best-inventions-2019-086-smarthalo2.jpg?quality=85&w=600&h=600&crop=1",
-          title: "SmartHalo launches 2nd-generation",
-          info: "smart bicycle accessory on Kickstarter",
-          incard: false,
-          price: 875,
-        },
+      {
+        img: "https://img.jakpost.net/c/2017/03/15/2017_03_15_23480_1489559147._large.jpg",
+        title: "Lifestyle - The Jakarta Post",
+        info: "Jakarta Post",
+        incard: false,
+        price: 100,
+      },
+      {
+        img: "https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg",
+        title: "Contemporary Modern House",
+        info: "Interior Design | Archello",
+        incard: false,
+        price: 70000,
+      },
+      {
+        img: "https://purepng.com/public/uploads/large/purepng.com-red-nanoflowcell-quant-f-modern-carcarvehicletransportnanoflowcellelectric-car-961524643572gazq0.png",
+        title: "Red NanoFlowcell ",
+        info: "Quant F Modern Car",
+        incard: false,
+        price: 8400,
+      },
+      {
+        img: "https://useoftechnology.com/wp-content/uploads/2012/11/Ultra-thin-Quad-band-Watch-Mobile-Phone.jpg",
+        title: "Modern Technology ",
+        info: "Advantages And Disadvantages",
+        incard: false,
+        price: 550,
+      },
+      {
+        img: "https://th-thumbnailer.cdn-si-edu.com/xa2JOuH_S4eOdw6C-ZZ0lADMflo=/1000x750/filters:no_upscale()/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/29/44/2944be0e-529b-48c4-8b7d-02724b0cb563/manta5.jpg",
+        title: "Eight Remarkable Invention",
+        info: "Innovation| Smithsonian Magazine",
+        incard: false,
+        price: 870,
+      },
+      {
+        img: "https://www.mensjournal.com/wp-content/uploads/2020/01/CES-main.jpg?quality=86&strip=all",
+        title: "Coolest Gadgets",
+        info: " This Year's Show",
+        incard: false,
+        price: 235,
+      },
+      {
+        img: "https://api.time.com/wp-content/uploads/2019/11/best-inventions-2019-086-smarthalo2.jpg?quality=85&w=600&h=600&crop=1",
+        title: "SmartHalo launches 2nd-generation",
+        info: "smart bicycle accessory on Kickstarter",
+        incard: false,
+        price: 875,
+      },
     ],
   },
   card: [],
+  searchPro:[],
 };
 
 const shopReducer = (state = initialState, action) => {
@@ -316,11 +317,28 @@ const shopReducer = (state = initialState, action) => {
       return { ...state, card: [...state.card, action.payload] };
     case t.CHANGE_PRODUCT_NUM:
       state.card.map((item) => {
-        if (item.img === action.payload.img && item.info === action.payload.info && item.title === action.payload.title && item.price === action.payload.price) {
+        if (
+          item.img === action.payload.img &&
+          item.info === action.payload.info &&
+          item.title === action.payload.title &&
+          item.price === action.payload.price
+        ) {
           item.num = action.payload.num;
         }
       });
       return { ...state, card: [...state.card] };
+    case t.FIND_PRODUCT:
+      state.categoriy.map((e) => {
+        if (e.select) {
+          state = {
+            ...state,
+            categories: { ...state.categories},
+            searchPro: [...action.payload]
+          };
+        }
+      });
+      return { ...state };
+
     default:
       return state;
   }

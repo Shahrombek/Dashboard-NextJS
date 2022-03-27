@@ -36,3 +36,19 @@ export const addProduct = (item) => {
 export const changeProductNum = (item) => {
   dispatch({ type: t.CHANGE_PRODUCT_NUM, payload: item });
 }
+
+export const findProduct = (item) => {
+  dispatch({ type: t.FIND_PRODUCT, payload: item });
+}
+
+
+// user Grid
+
+export const addNewUser = (item) => {
+  dispatch({ type: t.ADD_USER, payload: item });
+}
+
+export const findUser = (item) => {
+  dispatch({ type: t.FIND_USER, payload: item });
+}
+
