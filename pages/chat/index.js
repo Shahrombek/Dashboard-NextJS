@@ -404,7 +404,6 @@ function Prepare() {
           <Paper
             sx={{
               width: "100%",
-              // minWidth: '300px !important',
               height: {xs: '570px',sm:"600px"},
               display: "block",
             }}

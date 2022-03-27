@@ -38,3 +38,21 @@ a {
 input[type='file']{
   display: none
 }
+
+.css-j1wllq-MuiButtonBase-root-MuiPaginationItem-root{
+  border: 1px solid rgb(36, 153, 239);
+  color: rgb(36, 153, 239);
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0px 7px;
+
+}
+.css-j1wllq-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+  background-color: rgb(36, 153, 239, 0.2);
+}
+.css-j1wllq-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected:hover{
+  background-color: rgb(36, 153, 239, 0.2);
+}
+.css-j1wllq-MuiButtonBase-root-MuiPaginationItem-root:hover{
+  background-color: auto;
+}

@@ -39,7 +39,6 @@ const initialState = {
 };
 
 const newsReducer = (state = initialState, action) => {
-  console.log("keldi", action);
   switch (action.type) {
     case t.ADD_TODO:
       return {

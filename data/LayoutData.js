@@ -68,7 +68,7 @@ const LayoutData = [
     title: "Eccomerce",
     lists: [
       { title: "Shop", link: "eccomerce/shop" },
-      { title: "Cart", link: "eccomerce/cart" },
+      { title: "Card", link: "eccomerce/card" },
       { title: "Checkout", link: "eccomerce/checkout" },
       {
         title: "Purchase Confirmation",
