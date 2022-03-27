@@ -308,7 +308,7 @@ function Prepare() {
         </Grid>
         <Grid item xs={12} md={9}>
           <Paper sx={{ width: "100%", p: "15px" }}>
-            <Grid container spacing={3} sx={{ minHeight: "550px !important" }}>
+            <Grid container spacing={3} sx={{ minHeight: !search && "550px !important" }}>
               {data.map((e, i) => {
                 return (
                   <Grid item key={i} lg={4} sm={6} xs={12}>
@@ -439,12 +439,12 @@ function Prepare() {
                 mt: { xs: 3, lg: 1 },
               }}
             >
-              <Pagination
-                onChange={(e, page) => setCurrentPage(page)}
-                variant="outlined"
-                count={pageNumbers}
-                sx={{ color: "rgb(36, 153, 239)" }}
-              ></Pagination>
+             {!search && <Pagination
+            onChange={(e, page) => setCurrentPage(page)}
+            variant="outlined"
+            count={pageNumbers}
+            sx={{ color: "rgb(36, 153, 239)" }}
+          ></Pagination>}
             </Box>
           </Paper>
         </Grid>
