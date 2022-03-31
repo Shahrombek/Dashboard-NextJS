@@ -14,3 +14,8 @@ export const FIND_PRODUCT = 'FIND_PRODUCT';
 
 export const ADD_USER = 'ADD_USER';
 export const FIND_USER = 'FIND_USER';
+
+
+export const CHOOSE_INVOICE = 'CHOOSE_INVOICE';
+export const ADD_INVOICE = 'ADD_INVOICE';
+export const EDIT_INVOICE = 'EDIT_INVOICE';

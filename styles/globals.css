@@ -36,7 +36,7 @@ a {
 }
 
 input[type='file']{
-  display: none
+  display: none;
 }
 
 ul li button{
@@ -49,4 +49,9 @@ ul li button{
 }
 ul li button:hover{
   background: rgb(36, 153, 239, 0.2) !important;
+}
+
+form label span{
+  font-size: 14px !important;
+  font-weight: 600 !important;
 }

@@ -49,7 +49,7 @@ function Prepare() {
                     my:1
                   }}
                 >
-                  Make purchases from Uko Dashboard
+                  Make purchases from <span style={{color:'rgb(36, 153, 239)'}}>Uko Dashboard</span>
                 </Typography>
                 <Typography
                   sx={{

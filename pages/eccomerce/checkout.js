@@ -24,9 +24,15 @@ function Prepare() {
     return price;
   };
   const present = subtotal() * 0.15;
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    router.push("/eccomerce/purchaseConfirmation")
+  }
   return (
     <Box sx={{ padding: "30px" }}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} component={'form'} onSubmit={(e) => handleSubmit(e)}>
         <Grid item xs={12} md={8}>
           <Paper
             sx={{
@@ -43,15 +49,15 @@ function Prepare() {
               <Typography sx={{ fontSize: "14px", fontWeight: 500, mb: 1 }}>
                 Card Number
               </Typography>
-              <TextField sx={{ width: "100%", mb: 3 }} variant="outlined" />
+              <TextField required sx={{ width: "100%", mb: 3 }} variant="outlined" />
               <Typography sx={{ fontSize: "14px", fontWeight: 500, mb: 1 }}>
                 Expiration
               </Typography>
-              <TextField sx={{ width: "100%", mb: 3 }} variant="outlined" />
+              <TextField required sx={{ width: "100%", mb: 3 }} variant="outlined" />
               <Typography sx={{ fontSize: "14px", fontWeight: 500, mb: 1 }}>
                 Secure Code
               </Typography>
-              <TextField sx={{ width: "100%", mb: 2 }} variant="outlined" />
+              <TextField required sx={{ width: "100%", mb: 2 }} variant="outlined" />
             </Box>
             <Box sx={{ flex: 1 }}>
               <img
@@ -74,17 +80,17 @@ function Prepare() {
               <Typography sx={{ fontSize: "14px", fontWeight: 500, mb: 1 }}>
                 Address
               </Typography>
-              <TextField sx={{ width: "100%", mb: 3 }} variant="outlined" />
+              <TextField required sx={{ width: "100%", mb: 3 }} variant="outlined" />
               <Typography sx={{ fontSize: "14px", fontWeight: 500, mb: 1 }}>
                 Mobile Number
               </Typography>
-              <TextField sx={{ width: "100%", mb: 3 }} variant="outlined" />
+              <TextField required sx={{ width: "100%", mb: 3 }} variant="outlined" />
             </Box>
             <Box sx={{ flex: 1, width: "100%" }}>
               <Typography sx={{ fontSize: "14px", fontWeight: 500, mb: 1 }}>
                 Town/City
               </Typography>
-              <TextField sx={{ width: "100%", mb: 3 }} variant="outlined" />
+              <TextField required sx={{ width: "100%", mb: 3 }} variant="outlined" />
             </Box>
           </Paper>
         </Grid>
@@ -150,7 +156,8 @@ function Prepare() {
                 <span style={{ color: "rgb(36, 153, 239)" }}>$ {subtotal() + present}</span>
               </Typography>
               <Button
-                onClick={() => router.push("/eccomerce/purchaseConfirmation")}
+                type='submit'
+                // onClick={() => router.push("/eccomerce/purchaseConfirmation")}
                 sx={{
                   background: "rgb(36, 153, 239)",
                   "&:hover": { background: "rgb(36, 153, 239)" },

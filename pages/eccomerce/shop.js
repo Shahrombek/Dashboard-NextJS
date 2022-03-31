@@ -437,7 +437,7 @@ function Prepare() {
             </Grid>
             <Box
               sx={{
-                display:  !search ? "flex" : 'none',
+                display: !search ? "flex" : "none",
                 justifyContent: "center",
                 my: 1,
                 mt: { xs: 3, lg: 1 },

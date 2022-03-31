@@ -52,3 +52,17 @@ export const findUser = (item) => {
   dispatch({ type: t.FIND_USER, payload: item });
 }
 
+// invoice section
+
+export const selectInvoice = (item) => {
+  dispatch({ type: t.CHOOSE_INVOICE, payload: item });
+}
+
+export const addInvoise = (item) => {
+  dispatch({ type: t.ADD_INVOICE, payload: item });
+}
+
+export const editInvoice = (item) => {
+  dispatch({ type: t.EDIT_INVOICE, payload: item });
+}
+

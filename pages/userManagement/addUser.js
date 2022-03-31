@@ -38,7 +38,7 @@ function Prepare() {
 
   return (
     <Box sx={{ padding: "30px" }}>
-      <Paper sx={{ width: "100%", p: "30px" }}>
+      <Paper sx={{ width: "100%", p: {xs:"15px", sm:'30px'} }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
             <Paper
